@@ -1,0 +1,2 @@
+// Replace the URL with the public HTTPS address where index.html is hosted.
+sv_loadingurl "https://YOUR-DOMAIN.example/zcity-loading-screen/?Map=%m&SteamId=%s"

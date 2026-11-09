@@ -1,298 +1,77 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<style>
-  html, body {
-    margin: 0; padding: 0; width: 100%; height: 100%;
-    background: #05010d; overflow: hidden;
-    font-family: 'Arial Black', Arial, sans-serif;
-  }
-  .stage {
-    position: relative;
-    width: 100vw; height: 100vh;
-    overflow: hidden;
-  }
-  .frame {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    opacity: 0;
-    animation: cycle 20s infinite;
-  }
-  .frame svg { width: 100%; height: 100%; display: block; }
-
-  .frame:nth-child(1) { animation-delay: 0s; }
-  .frame:nth-child(2) { animation-delay: 4s; }
-  .frame:nth-child(3) { animation-delay: 8s; }
-  .frame:nth-child(4) { animation-delay: 12s; }
-  .frame:nth-child(5) { animation-delay: 16s; }
-
-  @keyframes cycle {
-    0%   { opacity: 0; }
-    2%   { opacity: 1; }
-    18%  { opacity: 1; }
-    22%  { opacity: 0; }
-    100% { opacity: 0; }
-  }
-
-  .sunGlow { animation: pulse 3s ease-in-out infinite; transform-origin: center; }
-  @keyframes pulse {
-    0%, 100% { filter: brightness(1); }
-    50%      { filter: brightness(1.15); }
-  }
-
-  .scan { animation: scanmove 6s linear infinite; }
-  @keyframes scanmove {
-    0%   { transform: translateY(0); }
-    100% { transform: translateY(20px); }
-  }
-
-  .title {
-    animation: flicker 3.5s infinite;
-  }
-  @keyframes flicker {
-    0%, 92%, 100% { opacity: 1; }
-    93% { opacity: 0.6; }
-    94% { opacity: 1; }
-    95% { opacity: 0.7; }
-    96% { opacity: 1; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b0e">
+  <meta name="description" content="CHAOSCITY — подключение к серверу">
+  <title>CHAOSCITY — Подключение</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="stage">
+  <div class="background" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="particles" id="particles" aria-hidden="true"></div>
 
-  <!-- FRAME 1: Purple/Pink classic -->
-  <div class="frame">
-    <svg viewBox="0 0 1376 768" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <radialGradient id="sky1" cx="50%" cy="30%" r="80%">
-          <stop offset="0%" stop-color="#2a0a3d"/>
-          <stop offset="100%" stop-color="#05010d"/>
-        </radialGradient>
-        <linearGradient id="sun1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#c084fc"/>
-          <stop offset="50%" stop-color="#f472b6"/>
-          <stop offset="100%" stop-color="#fbbf24"/>
-        </linearGradient>
-        <linearGradient id="grid1" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ff2fd6" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#ff2fd6" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <rect width="1376" height="768" fill="url(#sky1)"/>
-      <g class="sunGlow">
-        <circle cx="688" cy="330" r="220" fill="url(#sun1)"/>
-        <g stroke="#2a0a3d" stroke-width="10">
-          <line x1="468" y1="300" x2="908" y2="300"/>
-          <line x1="468" y1="330" x2="908" y2="330"/>
-          <line x1="468" y1="365" x2="908" y2="365"/>
-          <line x1="468" y1="405" x2="908" y2="405"/>
-        </g>
-      </g>
-      <g fill="#0d0518">
-        <rect x="60" y="380" width="60" height="300"/>
-        <rect x="150" y="320" width="80" height="360"/>
-        <rect x="260" y="420" width="50" height="260"/>
-        <rect x="950" y="400" width="70" height="280"/>
-        <rect x="1050" y="330" width="90" height="350"/>
-        <rect x="1180" y="450" width="55" height="230"/>
-        <rect x="580" y="220" width="60" height="480"/>
-        <rect x="660" y="180" width="70" height="520"/>
-        <rect x="750" y="260" width="55" height="440"/>
-      </g>
-      <rect x="0" y="600" width="1376" height="168" fill="url(#grid1)"/>
-      <g class="scan" stroke="#ff2fd6" stroke-width="2" opacity="0.5">
-        <line x1="0" y1="620" x2="1376" y2="620"/>
-        <line x1="0" y1="660" x2="1376" y2="660"/>
-        <line x1="0" y1="700" x2="1376" y2="700"/>
-      </g>
-      <text x="688" y="720" text-anchor="middle" class="title" font-size="70" fill="#ff2fd6" stroke="#fff" stroke-width="1" style="letter-spacing:6px;">RETROCITY</text>
-    </svg>
-  </div>
+  <main class="screen">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Z-CITY">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span class="brand-word">CHAOS<span>/</span>CITY</span>
+      </a>
+      <div class="topbar-right">
+        <span class="live-dot"></span>
+        <span id="connection-label">СОЕДИНЕНИЕ С СЕРВЕРОМ</span>
+      </div>
+    </header>
 
-  <!-- FRAME 2: Orange/Red dusk -->
-  <div class="frame">
-    <svg viewBox="0 0 1376 768" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <radialGradient id="sky2" cx="50%" cy="30%" r="80%">
-          <stop offset="0%" stop-color="#3d0a12"/>
-          <stop offset="100%" stop-color="#0a0205"/>
-        </radialGradient>
-        <linearGradient id="sun2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#fca5a5"/>
-          <stop offset="50%" stop-color="#f97316"/>
-          <stop offset="100%" stop-color="#facc15"/>
-        </linearGradient>
-        <linearGradient id="grid2" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#ff5722" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#ff5722" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <rect width="1376" height="768" fill="url(#sky2)"/>
-      <g class="sunGlow">
-        <circle cx="688" cy="340" r="200" fill="url(#sun2)"/>
-        <g stroke="#3d0a12" stroke-width="10">
-          <line x1="488" y1="310" x2="888" y2="310"/>
-          <line x1="488" y1="345" x2="888" y2="345"/>
-          <line x1="488" y1="385" x2="888" y2="385"/>
-        </g>
-      </g>
-      <g fill="#150404">
-        <rect x="100" y="400" width="65" height="280"/>
-        <rect x="190" y="340" width="85" height="340"/>
-        <rect x="920" y="380" width="60" height="300"/>
-        <rect x="1020" y="300" width="100" height="380"/>
-        <rect x="600" y="240" width="65" height="460"/>
-        <rect x="690" y="200" width="75" height="500"/>
-      </g>
-      <rect x="0" y="600" width="1376" height="168" fill="url(#grid2)"/>
-      <g class="scan" stroke="#ffb703" stroke-width="2" opacity="0.5">
-        <line x1="0" y1="630" x2="1376" y2="630"/>
-        <line x1="0" y1="670" x2="1376" y2="670"/>
-      </g>
-      <text x="688" y="720" text-anchor="middle" class="title" font-size="70" fill="#ffb703" stroke="#fff" stroke-width="1" style="letter-spacing:6px;">COOL EVENTS</text>
-    </svg>
-  </div>
+    <section class="hero" aria-label="Информация о сервере">
+      <div class="hero-copy">
+        <h1 class="main-title">CHAOSCITY</h1>
+      </div>
 
-  <!-- FRAME 3: Cyan/Blue midnight -->
-  <div class="frame">
-    <svg viewBox="0 0 1376 768" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <radialGradient id="sky3" cx="50%" cy="30%" r="80%">
-          <stop offset="0%" stop-color="#0a1d3d"/>
-          <stop offset="100%" stop-color="#01030d"/>
-        </radialGradient>
-        <linearGradient id="sun3" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#a5f3fc"/>
-          <stop offset="50%" stop-color="#22d3ee"/>
-          <stop offset="100%" stop-color="#6366f1"/>
-        </linearGradient>
-        <linearGradient id="grid3" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <rect width="1376" height="768" fill="url(#sky3)"/>
-      <g class="sunGlow">
-        <circle cx="688" cy="320" r="210" fill="url(#sun3)"/>
-        <g stroke="#0a1d3d" stroke-width="10">
-          <line x1="478" y1="290" x2="898" y2="290"/>
-          <line x1="478" y1="325" x2="898" y2="325"/>
-          <line x1="478" y1="365" x2="898" y2="365"/>
-          <line x1="478" y1="410" x2="898" y2="410"/>
-        </g>
-      </g>
-      <g fill="#040a18">
-        <rect x="80" y="360" width="60" height="320"/>
-        <rect x="170" y="300" width="90" height="380"/>
-        <rect x="960" y="390" width="65" height="290"/>
-        <rect x="1060" y="310" width="95" height="370"/>
-        <rect x="590" y="210" width="60" height="490"/>
-        <rect x="670" y="170" width="70" height="530"/>
-        <rect x="760" y="250" width="55" height="450"/>
-      </g>
-      <rect x="0" y="600" width="1376" height="168" fill="url(#grid3)"/>
-      <g class="scan" stroke="#a5f3fc" stroke-width="2" opacity="0.5">
-        <line x1="0" y1="625" x2="1376" y2="625"/>
-        <line x1="0" y1="665" x2="1376" y2="665"/>
-        <line x1="0" y1="705" x2="1376" y2="705"/>
-      </g>
-      <text x="688" y="720" text-anchor="middle" class="title" font-size="70" fill="#22d3ee" stroke="#fff" stroke-width="1" style="letter-spacing:6px;">GOOD COMMUNITY</text>
-    </svg>
-  </div>
+      <aside class="info-panel">
+        <div class="panel-topline"><span>ИНФОРМАЦИЯ О СЕРВЕРЕ</span><span class="panel-index">01 / 03</span></div>
+        <div class="server-name" id="server-name">CHAOSCITY</div>
+        <div class="server-subtitle">СЕРВЕР GAR﻿RY'S MOD</div>
+        <div class="info-divider"></div>
+        <div class="info-row"><span>ТЕКУЩАЯ КАРТА</span><strong id="map-name">ОЖИДАНИЕ...</strong></div>
+        <div class="info-row"><span>ИГРОВОЙ РЕЖИМ</span><strong id="gamemode">Z-CITY</strong></div>
+        <div class="info-row"><span>ЛИМИТ ИГРОКОВ</span><strong id="max-players">—</strong></div>
+        <div class="info-divider"></div>
+        <div class="tip-label"><span class="tip-symbol">✳</span> СОВЕТ ИГРОКАМ</div>
+        <p class="tip-text" id="tip-text">Изучите правила сервера перед началом игры.</p>
+        <div class="tip-counter" id="tip-counter">СОВЕТ 01</div>
+      </aside>
+    </section>
 
-  <!-- FRAME 4: Green/Teal cyber -->
-  <div class="frame">
-    <svg viewBox="0 0 1376 768" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <radialGradient id="sky4" cx="50%" cy="30%" r="80%">
-          <stop offset="0%" stop-color="#0a3d2a"/>
-          <stop offset="100%" stop-color="#010d08"/>
-        </radialGradient>
-        <linearGradient id="sun4" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#bbf7d0"/>
-          <stop offset="50%" stop-color="#34d399"/>
-          <stop offset="100%" stop-color="#0ea5a4"/>
-        </linearGradient>
-        <linearGradient id="grid4" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#34d399" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#34d399" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <rect width="1376" height="768" fill="url(#sky4)"/>
-      <g class="sunGlow">
-        <circle cx="688" cy="330" r="215" fill="url(#sun4)"/>
-        <g stroke="#0a3d2a" stroke-width="10">
-          <line x1="473" y1="300" x2="903" y2="300"/>
-          <line x1="473" y1="335" x2="903" y2="335"/>
-          <line x1="473" y1="375" x2="903" y2="375"/>
-        </g>
-      </g>
-      <g fill="#03150e">
-        <rect x="90" y="390" width="60" height="290"/>
-        <rect x="180" y="330" width="85" height="350"/>
-        <rect x="940" y="400" width="65" height="280"/>
-        <rect x="1040" y="320" width="95" height="360"/>
-        <rect x="600" y="230" width="60" height="470"/>
-        <rect x="680" y="190" width="70" height="510"/>
-      </g>
-      <rect x="0" y="600" width="1376" height="168" fill="url(#grid4)"/>
-      <g class="scan" stroke="#bbf7d0" stroke-width="2" opacity="0.5">
-        <line x1="0" y1="628" x2="1376" y2="628"/>
-        <line x1="0" y1="668" x2="1376" y2="668"/>
-      </g>
-      <text x="688" y="720" text-anchor="middle" class="title" font-size="70" fill="#34d399" stroke="#fff" stroke-width="1" style="letter-spacing:6px;">ACTIVE STAFF</text>
-    </svg>
-  </div>
-
-  <!-- FRAME 5: Magenta/Violet storm -->
-  <div class="frame">
-    <svg viewBox="0 0 1376 768" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <radialGradient id="sky5" cx="50%" cy="30%" r="80%">
-          <stop offset="0%" stop-color="#3d0a35"/>
-          <stop offset="100%" stop-color="#0d010a"/>
-        </radialGradient>
-        <linearGradient id="sun5" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#f0abfc"/>
-          <stop offset="50%" stop-color="#d946ef"/>
-          <stop offset="100%" stop-color="#7e22ce"/>
-        </linearGradient>
-        <linearGradient id="grid5" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#d946ef" stop-opacity="0.9"/>
-          <stop offset="100%" stop-color="#d946ef" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <rect width="1376" height="768" fill="url(#sky5)"/>
-      <g class="sunGlow">
-        <circle cx="688" cy="320" r="225" fill="url(#sun5)"/>
-        <g stroke="#3d0a35" stroke-width="10">
-          <line x1="463" y1="290" x2="913" y2="290"/>
-          <line x1="463" y1="330" x2="913" y2="330"/>
-          <line x1="463" y1="375" x2="913" y2="375"/>
-          <line x1="463" y1="425" x2="913" y2="425"/>
-        </g>
-      </g>
-      <g fill="#160414">
-        <rect x="70" y="370" width="65" height="310"/>
-        <rect x="160" y="310" width="85" height="370"/>
-        <rect x="970" y="390" width="60" height="290"/>
-        <rect x="1070" y="300" width="95" height="380"/>
-        <rect x="580" y="220" width="65" height="480"/>
-        <rect x="670" y="180" width="75" height="520"/>
-        <rect x="760" y="260" width="55" height="440"/>
-      </g>
-      <rect x="0" y="600" width="1376" height="168" fill="url(#grid5)"/>
-      <g class="scan" stroke="#f0abfc" stroke-width="2" opacity="0.5">
-        <line x1="0" y1="622" x2="1376" y2="622"/>
-        <line x1="0" y1="662" x2="1376" y2="662"/>
-        <line x1="0" y1="702" x2="1376" y2="702"/>
-      </g>
-      <text x="688" y="720" text-anchor="middle" class="title" font-size="70" fill="#f0abfc" stroke="#fff" stroke-width="1" style="letter-spacing:6px;">NEW UPDATES</text>
-    </svg>
-  </div>
-
-</div>
+    <footer class="loading-panel">
+      <div class="loading-heading">
+        <div>
+          <div class="loading-kicker">ПОДКЛЮЧЕНИЕ</div>
+          <div class="loading-status" id="loading-status" aria-live="polite">Устанавливаем соединение с сервером...</div>
+        </div>
+        <div class="progress-number" id="progress-number">—<small>%</small></div>
+      </div>
+      <div class="progress-track" role="progressbar" aria-label="Загрузка файлов" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+        <div class="progress-glint"></div>
+      </div>
+      <div class="progress-meta">
+        <span id="file-count">ОЖИДАНИЕ ДАННЫХ СЕРВЕРА</span>
+        <span id="current-file">ПОДГОТОВКА</span>
+      </div>
+      <div class="footer-line">
+        <span><b class="footer-dot"></b> CHAOSCITY COMMUNITY</span>
+        <span>ПРИЯТНОЙ ИГРЫ</span>
+        <span class="version">LOADING SYSTEM <b>01.0</b></span>
+      </div>
+    </footer>
+  </main>
+  <script src="script.js"></script>
 </body>
 </html>
